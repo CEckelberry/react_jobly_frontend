@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import { Form, FormGroup, Label, Input, Button, Container, Row, Col } from 'reactstrap';
+import "./Profile.css"
+
 
 function Profile(){
     const initialState = {
@@ -30,27 +32,34 @@ function Profile(){
 
     return(
         <div>
-            <h1>Profile</h1>
-            <Form onSubmit={handleSubmit}>
-            <FormGroup>
-                <Label for="item">Username:</Label>
-                <p>Username</p>
+        <Container>
+            <Row>
+                <Col className="welcome" sm="12" md={{ size: 6, offset: 3 }}>
+                    <h1>Profile</h1>
+                    <Form onSubmit={handleSubmit}>
+                    <FormGroup>
+                        <Label for="item">Username:</Label>
+                        <p>Username</p>
 
-                <Label for="first_name">First Name:</Label>
-                <Input type="text" name="first_name" id="first_name" placeholder="first_name" value={formData.name} onChange={handleChange}/>
+                        <Label for="first_name">First Name:</Label>
+                        <Input type="text" name="first_name" id="first_name" placeholder="first_name" value={formData.name} onChange={handleChange}/>
 
-                <Label for="last_name">Last Name:</Label>
-                <Input type="text" name="last_name" id="last_name" placeholder="last_name" value={formData.description} onChange={handleChange}/>
+                        <Label for="last_name">Last Name:</Label>
+                        <Input type="text" name="last_name" id="last_name" placeholder="last_name" value={formData.description} onChange={handleChange}/>
 
-                <Label for="email">Email:</Label>
-                <Input type="email" name="email" id="email" placeholder="email" value={formData.recipe} onChange={handleChange}/>
+                        <Label for="email">Email:</Label>
+                        <Input type="email" name="email" id="email" placeholder="email" value={formData.recipe} onChange={handleChange}/>
 
-                <Label for="password">Enter Password to Confirm Changes:</Label>
-                <Input type="password" name="password" id="password" placeholder="password" value={formData.serve} onChange={handleChange}/>
+                        <Label for="password">Enter Password to Confirm Changes:</Label>
+                        <Input type="password" name="password" id="password" placeholder="password" value={formData.serve} onChange={handleChange}/>
 
-                <Button>Save Changes</Button>
-            </FormGroup>
-            </Form>
+                        <Button size="lg" block>Save Changes</Button>
+                    </FormGroup>
+                    </Form>
+                </Col>
+            </Row>
+        </Container>
+
         </div>
     )
 }

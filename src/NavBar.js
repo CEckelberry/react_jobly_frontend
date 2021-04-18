@@ -1,59 +1,63 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink as ClientRoute} from "react-router-dom";
 import "./NavBar.css";
-import {Navbar,
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
   Nav,
   NavItem,
- } from "reactstrap";
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+  NavbarText
+} from 'reactstrap';
 
 function NavBar() {
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggle = () => setIsOpen(!isOpen);
+    
     let loggedIn = true;
 
 
     if (!loggedIn){
         return (
-            <div>
-              <Navbar expand="md">
-                <NavLink exact to="/" className="navbar-brand">
-                  Jobly
-                </NavLink>
-        
-                <Nav className="ml-auto" navbar>
-                  <NavItem>
-                    <NavLink to="/login">Login</NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink to="/signup">Sign Up</NavLink>
-                  </NavItem>
+          <div>
+          <Navbar color="light" light expand="md">  
+              <NavbarBrand tag={ClientRoute} exact to="/">Jobly</NavbarBrand>
+                <Nav className="mr-auto" navbar>
                 </Nav>
-              </Navbar>
-            </div>
+                <NavbarText><NavLink tag={ClientRoute} to="/login">Login</NavLink></NavbarText>
+                <NavbarText><NavLink tag={ClientRoute} to="/signup">Sign Up</NavLink></NavbarText>
+            </Navbar>
+        </div>
           );
     }
 
         return (
             <div>
-                <Navbar expand="md">
-                    <NavLink href="/" exact to="/" className="navbar-brand">
-                      Jobly
-                    </NavLink>
-
-        
-                <Nav className="ml-auto" navbar>
-                    <NavItem>
-                        <NavLink to="/companies">Companies</NavLink>
-                    </NavItem>
-                    <NavItem>
-                        <NavLink to="/jobs">Jobs</NavLink>
-                    </NavItem>
-                    <NavItem>
-                        <NavLink to="/profile">Profile</NavLink>
-                    </NavItem>
-                    <NavItem>
-                        <NavLink to="/logout">Log Out</NavLink>
-                    </NavItem>
-                </Nav>
-              </Navbar>
+              <Navbar color="light" light expand="md">  
+                  <NavbarBrand tag={ClientRoute} exact to="/">Jobly</NavbarBrand>
+                  <NavbarToggler onClick={toggle} />
+                  <Collapse isOpen={isOpen} navbar>
+                    <Nav className="mr-auto" navbar>
+                      <NavItem>
+                        <NavLink tag={ClientRoute} to="/companies">Companies</NavLink>
+                      </NavItem>
+                      <NavItem>
+                        <NavLink tag={ClientRoute} to="/jobs">Jobs</NavLink>
+                      </NavItem>
+                      <NavItem>
+                        <NavLink tag={ClientRoute} to="/profile">Profile</NavLink>
+                      </NavItem>
+                    </Nav>
+                    <NavLink tag={ClientRoute} to="/logout">Log Out</NavLink>
+                  </Collapse>
+                </Navbar>
             </div>
         );
   }

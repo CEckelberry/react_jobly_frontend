@@ -1,0 +1,16 @@
+img {
+	float: right;
+}
+
+.card {
+	margin-top: .65rem;
+	box-shadow: 0 1px 3px slategray;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+h6 {
+	font-size: small;
+}

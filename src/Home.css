@@ -1,0 +1,16 @@
+.welcome {
+	justify-content: center;
+	margin-top: 22rem;
+}
+
+h1 {
+	color: royalblue;
+	font-weight: bolder;
+	text-align: center;
+}
+
+p,
+h3 {
+	font-weight: bolder !important;
+	text-align: center !important;
+}

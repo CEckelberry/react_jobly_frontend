@@ -1,0 +1,19 @@
+.salary {
+	font-size: smaller;
+	font-weight: lighter;
+	float: left;
+	margin-bottom: 0px;
+}
+.equity {
+	font-size: smaller;
+	font-weight: lighter;
+	float: left;
+}
+
+button {
+	float: right;
+}
+
+#subtitle {
+	font-size: medium;
+}

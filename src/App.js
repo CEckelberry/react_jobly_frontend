@@ -4,6 +4,7 @@ import Routes from "./Routes"
 
 
 function App() {
+  document.body.style = 'background: #F0f3f5';
   return (
     <div className="App">
       <NavBar />

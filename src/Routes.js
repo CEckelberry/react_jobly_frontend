@@ -8,15 +8,17 @@ import Profile from "./Profile";
 
 function Routes(){
     return(
-        <Switch>
-            <Route exact path="/"> <Home /> </Route>
-            <Route exact path="/jobs"> <JobsList /> </Route>
-            <Route exact path="/companies"> <CompaniesList /> </Route>
-            <Route exact path="/company/:name"> <CompanyJobList /> </Route>
-            <Route exact path="/profile"> <Profile /> </Route>
+        <div>
+            <Switch>
+                <Route exact path="/"> <Home /> </Route>
+                <Route exact path="/jobs"> <JobsList /> </Route>
+                <Route exact path="/companies"> <CompaniesList /> </Route>
+                <Route exact path="/company/:handle"> <CompanyJobList /> </Route>
+                <Route exact path="/profile"> <Profile /> </Route>
 
-            <Redirect to="/"/>
-        </Switch>
+                {/* <Redirect to="/"/> */}
+            </Switch>
+        </div>
     )
 }
 
