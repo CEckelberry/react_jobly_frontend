@@ -1,33 +1,54 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { Container, Row, Col } from 'reactstrap';
+import UserContext from "./UserContext";
 import "./Home.css"
 
 function Home() {
-    let loggedIn = true;
-    if(!loggedIn){
+    const { currentUser } = useContext(UserContext);
+
+    function loggedOutHome(){
         return(
             <div>
-                <h1>Jobly</h1>
-                <p>All the jobs in one, convenient place.</p>
-                <button>Log in</button>
-                <button>Sign up</button>
+                <Container>
+                    <Row>
+                        <Col className="welcome" sm="12" md={{ size: 6, offset: 3 }}>
+                            <h1>Jobly</h1>
+                            <p>All the jobs in one, convenient place.</p>
+                            <Link className="btn btn-primary font-weight-bold mr-3" to="/login">Log in</Link>
+                            <Link className="btn btn-primary font-weight-bold" to="/signup">Sign up</Link>
+                        </Col>
+                    </Row>
+                </Container>
             </div>
-        );
+        )
     }
 
-    return(
-    <div>
-        <Container>
-            <Row>
-                <Col className="welcome" sm="12" md={{ size: 6, offset: 3 }}>
-                    <h1>Jobly</h1>
-                    <p>All the jobs in one, convenient place.</p>
-                    <h3>Welcome Back, User!</h3>
-                </Col>
-            </Row>
-    </Container>
-    </div>
-    );
+
+    function loggedInHome(){
+        return(
+            <div>
+                <Container>
+                    <Row>
+                        <Col className="welcome" sm="12" md={{ size: 6, offset: 3 }}>
+                            <h1>Jobly</h1>
+                            <p>All the jobs in one, convenient place.</p>
+                            <h3>Welcome Back, ${currentUser.username}!</h3>
+                        </Col>
+                    </Row>
+                </Container>
+            </div>
+        )
+    }
+
+  
+
+
+    return (
+        <div>
+          {currentUser ? loggedInHome() : loggedOutHome()}
+        </div>
+      )
 }
 
 export default Home;

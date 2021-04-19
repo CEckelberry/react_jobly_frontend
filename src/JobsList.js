@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from "react";
 import JoblyApi from "./Api";
 import { Link } from "react-router-dom";
-import {ListGroup, ListGroupItem, Card, CardImg, CardText, CardBody,
-    CardTitle, CardSubtitle, Button, Container, Row, Col} from "reactstrap";
+import {Container, Row, Col} from "reactstrap";
+import SearchForm from "./Search"
+import JobCard from "./JobCard"
 import "./JobsList.css"
 
 function JobsList() {
@@ -19,6 +20,17 @@ function JobsList() {
         getJobs();
     }, []);
 
+      useEffect(function getAllJobsOnMount() {
+    console.debug("JobList useEffect getAllJobsOnMount");
+    search();
+  }, []);
+
+    async function search(title) {
+        //console.log(`Searching for ${title}`)
+        let jobs = await JoblyApi.getJobs(title);
+        setJobs(jobs);
+      }
+
     if (isLoading) {
         return <p>Loading....</p>;
       }
@@ -28,18 +40,11 @@ function JobsList() {
             <Container>
                 <Row>
                     <Col>
-                    {jobs.map(job => (
-                        <Card>
-                        <CardBody>
-                            <CardTitle><b>{job.title}</b></CardTitle>
-                            <CardSubtitle tag="h6" className="mb-2 text-muted" id="subtitle">{job.companyName}</CardSubtitle>
-                                <CardText className="salary">Salary: {job.salary}</CardText>
-                                <br></br>
-                                <CardText className="equity">Equity: {job.equity !== null ? job.equity : 0}</CardText>
-                                <Button>Apply</Button>
-                        </CardBody>
-                        </Card>
-                    ))}
+                        <SearchForm searchFor={search}/>
+                        {jobs.length
+                            ? <JobCard jobs={jobs} />
+                            :<p className="lead">Sorry, no results were found!</p>
+                        }
                     </Col>
                 </Row>
             </Container>

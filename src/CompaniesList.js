@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import JoblyApi from "./Api";
 import { Link } from "react-router-dom";
+import SearchForm from "./Search"
 import {ListGroup, ListGroupItem, Card, CardImg, CardText, CardBody,
     CardTitle, CardSubtitle, Button, Container, Row, Col} from "reactstrap";
 import "./CompaniesList.css"
@@ -19,6 +20,12 @@ function CompaniesList(){
         getCompanies();
     }, []);
 
+    async function search(name) {
+        //console.log(`Searching for ${title}`)
+        let companies = await JoblyApi.getCompanies(name);
+        setCompanies(companies);
+      }
+
     if (isLoading) {
         return <p>Loading....</p>;
       }
@@ -26,6 +33,11 @@ function CompaniesList(){
     return (
         <div>
             <Container>
+                <Row>
+                    <Col>
+                        <SearchForm searchFor={search}/>
+                    </Col>
+                </Row>
                 <Row>
                     <Col>
                         {companies.map(company => (

@@ -1,33 +1,49 @@
 import React, {useState, useEffect} from "react";
 import JoblyApi from "./Api";
 import { Link, useParams } from "react-router-dom";
-import {
-    Card, CardImg, CardText, CardBody,
-    CardTitle, CardSubtitle, Button
-  } from 'reactstrap';
+import JobCard from "./JobCard"
+import {Container, Row, Col} from 'reactstrap';
+import "./CompanyJobList.css"
 
 function CompanyJobList(){
     const { handle } = useParams();
 
-    const [isLoading, setIsLoading] = useState(true);
-    const [company, setCompany] = useState([]);
+    console.debug("CompanyDetail", "handle=", handle);
+
+    const [company, setCompany] = useState(null);
     
     useEffect(() => {
-        async function getCompany(){
+        async function PullCompany(){
+            console.log("in getCompany() function")
             let company = await JoblyApi.getCompany(handle);
             setCompany(company)
             console.log(company)
-            setIsLoading(false);
         }
-        getCompany();
-    }, []);
+        PullCompany();
+    }, [handle]);
 
-    if (isLoading) {
-        return <p>Loading....</p>;
-      }
+    if (!company) return <h1>Loading....</h1>;
 
     return(
-        <h1>{company.name}</h1>
+        <div>
+            <Container>
+                <Row>
+                    <Col>
+                        <h1 className="companyName">{company.name}</h1>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <h5 className="text-muted">{company.description}</h5>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <JobCard jobs={company.jobs}/>
+                    </Col>
+                </Row>
+            </Container>
+        </div>
     )
 
 

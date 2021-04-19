@@ -1,31 +1,59 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Form, FormGroup, Label, Input, Button, Container, Row, Col } from 'reactstrap';
-import "./Profile.css"
+import UserContext from "./UserContext";
+import Alert from "./Alert"
+import JoblyApi from "./Api"
+import "./Profile.css";
 
 
 function Profile(){
-    const initialState = {
-        username: "Username",
-        first_name: "",
-        last_name: "",
-        email: "",
+
+      const { currentUser, setCurrentUser } = useContext(UserContext);
+      const [formErrors, setFormErrors] = useState([]);
+      const [saveConfirmed, setSaveConfirmed] = useState(false);
+
+      const [formData, setFormData] = useState({
+        firstName: currentUser.first_name,
+        lastName: currentUser.last_name,
+        email: currentUser.email,
+        username: currentUser.username,
         password: "",
-      }
-      const [formData, setFormData] = useState(initialState)
+      })
+
       const handleChange = e => {
         const { name, value } = e.target;
         setFormData(data => ({
           ...data,
           [name]: value
-        }))
+        }));
+        setFormErrors([]);
       }
 
-      const handleSubmit = (e) => {
+      async function handleSubmit(e){
         e.preventDefault();
-        const { username, first_name, last_name, email, password } = formData;
+        let profileData = {
+          firstName: formData.first_name,
+          lastName: formData.last_name,
+          email: formData.email,
+          password: formData.password,
+        }
+        let username = formData.username;
+        let updatedUser;
 
-        console.log("finished")
-        setFormData(initialState)
+        try {
+          updatedUser = await JoblyApi.saveProfile(username, profileData);
+        } catch (errors) {
+          debugger;
+          setFormErrors(errors);
+          return;
+        }
+
+        setFormData(f => ({ ...f, password: "" }));
+        setFormErrors([]);
+        setSaveConfirmed(true);
+    
+        // trigger reloading of user information throughout the site
+        setCurrentUser(updatedUser);
       }
 
 
@@ -35,7 +63,7 @@ function Profile(){
         <Container>
             <Row>
                 <Col className="welcome" sm="12" md={{ size: 6, offset: 3 }}>
-                    <h1>Profile</h1>
+                    <h1 className="profile">Profile</h1>
                     <Form onSubmit={handleSubmit}>
                     <FormGroup>
                         <Label for="item">Username:</Label>
@@ -53,7 +81,17 @@ function Profile(){
                         <Label for="password">Enter Password to Confirm Changes:</Label>
                         <Input type="password" name="password" id="password" placeholder="password" value={formData.serve} onChange={handleChange}/>
 
-                        <Button size="lg" block>Save Changes</Button>
+                        {formErrors.length
+                          ? <Alert type="danger" messages={formErrors} />
+                          : null}
+
+                        {saveConfirmed
+                            ?
+                            <Alert type="success" messages={["Updated successfully."]} />
+                            : null}
+
+
+                        <Button size="lg" block onClick={handleSubmit}>Save Changes</Button>
                     </FormGroup>
                     </Form>
                 </Col>
