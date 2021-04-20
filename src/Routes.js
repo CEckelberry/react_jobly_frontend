@@ -29,7 +29,7 @@ function Routes({ login, signup }){
                 <PrivateRoute exact path="/companies/:handle"> <CompanyJobList /> </PrivateRoute>
                 <PrivateRoute exact path="/profile"> <Profile /> </PrivateRoute>
 
-                {/* <Redirect to="/"/> */}
+                <Redirect to="/"/>
             </Switch>
         </div>
     )

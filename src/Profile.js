@@ -13,12 +13,12 @@ function Profile(){
       const [saveConfirmed, setSaveConfirmed] = useState(false);
 
       const [formData, setFormData] = useState({
-        firstName: currentUser.first_name,
-        lastName: currentUser.last_name,
+        firstName: currentUser.firstName,
+        lastName: currentUser.lastName,
         email: currentUser.email,
         username: currentUser.username,
         password: "",
-      })
+      });
 
       const handleChange = e => {
         const { name, value } = e.target;
@@ -32,8 +32,8 @@ function Profile(){
       async function handleSubmit(e){
         e.preventDefault();
         let profileData = {
-          firstName: formData.first_name,
-          lastName: formData.last_name,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
           email: formData.email,
           password: formData.password,
         }
@@ -66,20 +66,21 @@ function Profile(){
                     <h1 className="profile">Profile</h1>
                     <Form onSubmit={handleSubmit}>
                     <FormGroup>
-                        <Label for="item">Username:</Label>
-                        <p>Username</p>
-
+                        <div className="usernameGroup">
+                          <Label for="Username" id="usernamelabel">Username:</Label>
+                          <p className="username" name="username">{currentUser.username}</p>
+                        </div>
                         <Label for="first_name">First Name:</Label>
-                        <Input type="text" name="first_name" id="first_name" placeholder="first_name" value={formData.name} onChange={handleChange}/>
+                        <Input className="form-control" type="text" name="firstName" value={formData.firstName} onChange={handleChange}/>
 
                         <Label for="last_name">Last Name:</Label>
-                        <Input type="text" name="last_name" id="last_name" placeholder="last_name" value={formData.description} onChange={handleChange}/>
+                        <Input type="text" name="lastName" id="lastName" value={formData.lastName} onChange={handleChange}/>
 
                         <Label for="email">Email:</Label>
-                        <Input type="email" name="email" id="email" placeholder="email" value={formData.recipe} onChange={handleChange}/>
+                        <Input type="email" name="email" id="email" placeholder="email" value={formData.email} onChange={handleChange}/>
 
                         <Label for="password">Enter Password to Confirm Changes:</Label>
-                        <Input type="password" name="password" id="password" placeholder="password" value={formData.serve} onChange={handleChange}/>
+                        <Input type="password" name="password" id="password" value={formData.password} onChange={handleChange}/>
 
                         {formErrors.length
                           ? <Alert type="danger" messages={formErrors} />

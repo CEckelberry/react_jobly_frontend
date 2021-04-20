@@ -15,8 +15,10 @@ function Home() {
                         <Col className="welcome" sm="12" md={{ size: 6, offset: 3 }}>
                             <h1>Jobly</h1>
                             <p>All the jobs in one, convenient place.</p>
-                            <Link className="btn btn-primary font-weight-bold mr-3" to="/login">Log in</Link>
-                            <Link className="btn btn-primary font-weight-bold" to="/signup">Sign up</Link>
+                            <div className="links">
+                                <Link className="btn btn-primary font-weight-bold mr-3" to="/login">Log in</Link>
+                                <Link className="btn btn-primary font-weight-bold" to="/signup">Sign up</Link>
+                            </div>
                         </Col>
                     </Row>
                 </Container>

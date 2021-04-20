@@ -10,6 +10,7 @@ function JobsList() {
     const [isLoading, setIsLoading] = useState(true);
     const [jobs, setJobs] = useState([]);
     
+    
     useEffect(() => {
         async function getJobs(){
             let jobs = await JoblyApi.getJobs();
@@ -24,6 +25,7 @@ function JobsList() {
     console.debug("JobList useEffect getAllJobsOnMount");
     search();
   }, []);
+
 
     async function search(title) {
         //console.log(`Searching for ${title}`)
@@ -42,7 +44,7 @@ function JobsList() {
                     <Col>
                         <SearchForm searchFor={search}/>
                         {jobs.length
-                            ? <JobCard jobs={jobs} />
+                            ? <JobCard jobs={jobs}/>
                             :<p className="lead">Sorry, no results were found!</p>
                         }
                     </Col>

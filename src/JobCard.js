@@ -1,21 +1,21 @@
-import React from "react";
-import {Card,CardText, CardBody, CardTitle, CardSubtitle, Button} from "reactstrap";
+import React, { useContext, useState } from "react";
+import Job from "./Job"
 
-function JobCardList({jobs, applied}){
+
+function JobCardList({jobs, apply}){
+   
 
     return(
         <div>
             {jobs.map(job => (
-                <Card>
-                <CardBody>
-                    <CardTitle><b>{job.title}</b></CardTitle>
-                    <CardSubtitle tag="h6" className="mb-2 text-muted" id="subtitle">{job.companyName}</CardSubtitle>
-                        <CardText className="salary">Salary: {job.salary}</CardText>
-                        <br></br>
-                        <CardText className="equity">Equity: {job.equity !== null ? job.equity : 0}</CardText>
-                        <Button color="success" className="applybutton">APPLY</Button>
-                </CardBody>
-                </Card>
+                <Job 
+                    key={job.id}
+                    id={job.id}
+                    title={job.title}
+                    salary={job.salary}
+                    equity={job.equity}
+                    companyName={job.companyName}
+                />
             ))}
         </div>
     )

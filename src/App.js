@@ -84,6 +84,8 @@ function App() {
     setApplicationIds(new Set([...applicationIds, id]));
   }
 
+  if (!infoLoaded) return (<h1>Loading...</h1>)
+
   document.body.style = 'background: #F0f3f5';
   return (
     <UserContext.Provider value={{ currentUser, setCurrentUser, hasAppliedToJob, applyToJob }}>
